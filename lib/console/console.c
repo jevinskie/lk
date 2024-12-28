@@ -11,6 +11,7 @@
 #include <lk/trace.h>
 #include <assert.h>
 #include <lk/err.h>
+#include <stdint.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
@@ -701,8 +702,10 @@ console_t *console_create(bool with_history) {
     return con;
 }
 
+extern uint64_t arm64_boot_el;
 void console_start(console_t *con) {
     dprintf(INFO, "entering main console loop\n");
+    dprintf(INFO, "arm64_boot_el: %u\n", (((unsigned)arm64_boot_el) >> 2) & 3);
 
     console_set_current(con);
 
