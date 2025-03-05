@@ -702,10 +702,14 @@ console_t *console_create(bool with_history) {
     return con;
 }
 
+#ifdef __aarch64__
 extern uint64_t arm64_boot_el;
+#endif
 void console_start(console_t *con) {
     dprintf(INFO, "entering main console loop\n");
+#ifdef __aarch64__
     dprintf(INFO, "arm64_boot_el: %u\n", (((unsigned)arm64_boot_el) >> 2) & 3);
+#endif
 
     console_set_current(con);
 
